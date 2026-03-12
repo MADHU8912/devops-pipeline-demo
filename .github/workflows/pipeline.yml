@@ -1,0 +1,40 @@
+name: DevOps Build Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Step
+        run: echo "Build Successful"
+
+      - name: Build Report
+        run: echo "Build Completed Successfully"
+
+  deploy:
+
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Step
+        run: echo "Deploying Website to GitHub Pages"
+
+      - name: Deploy Report
+        run: echo "Deployment Successful"
