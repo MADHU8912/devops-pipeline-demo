@@ -1,0 +1,38 @@
+name: DevOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Project
+        run: echo "Build completed"
+
+  report-build-status:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report Build Status
+        run: echo "Build successful"
+
+  deploy:
+    needs: report-build-status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Project
+        run: echo "Deployment completed"
+
+  deploy-report:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Report
+        run: echo "Deployment successful"
