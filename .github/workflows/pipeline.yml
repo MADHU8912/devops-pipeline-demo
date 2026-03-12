@@ -1,4 +1,4 @@
-name: DevOps Build Deploy Pipeline
+name: DevOps CI/CD Pipeline
 
 on:
   push:
@@ -18,23 +18,32 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build Step
-        run: echo "Build Successful"
+      - name: Build Project
+        run: echo "Project Build Successful"
 
-      - name: Build Report
-        run: echo "Build Completed Successfully"
-
-  deploy:
+  report-build-status:
 
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Report Build Status
+        run: echo "Build Report: SUCCESS"
 
-      - name: Deploy Step
-        run: echo "Deploying Website to GitHub Pages"
+  deploy:
 
-      - name: Deploy Report
-        run: echo "Deployment Successful"
+    needs: report-build-status
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Project
+        run: echo "Deployment Started"
+
+  report-deploy-status:
+
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Report Deploy Status
+        run: echo "Deployment Report: SUCCESS"
